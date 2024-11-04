@@ -34,5 +34,5 @@ menu.toggle_loop(menu, "Hide Money", {"hidemoney"}, "Hide money from the hud at 
 end)
 
 menu:divider("by dew for his hotti")
-menu:readonly("love u bby")
+menu:readonly("love u bby lot lot lot lot lot lot lot lot")
 
