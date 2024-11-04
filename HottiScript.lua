@@ -1,7 +1,8 @@
-local SCRIPT_VERSION = "0.7"
+local SCRIPT_VERSION = "0.69"
 
 ---
 --- Auto-Updater
+---
 ---
 
 local auto_update_config = {
