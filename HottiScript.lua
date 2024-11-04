@@ -1,4 +1,4 @@
-local SCRIPT_VERSION = "0.69"
+local SCRIPT_VERSION = "0.7"
 
 ---
 --- Auto-Updater
