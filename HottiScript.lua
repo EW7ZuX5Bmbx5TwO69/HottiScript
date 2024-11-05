@@ -19,39 +19,34 @@ local auto_update_config = {
         script_relpath = "HottiScript/data/default_config.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     },
     {
         name = "configLoader",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/handlers/main/configLoader.lua",
-        script_relpath = "HottiScript/handlers/main/configLoader",
+        script_relpath = "HottiScript/handlers/main/configLoader.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     },
     {
-        name = "playerJoin_event",
+        name = "playerJoinLeave",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/events/playerJoinLeave.lua",
         script_relpath = "HottiScript/events/playerJoinLeave.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     },
     {
-        name = "utils_cache",
+        name = "cache",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/utils/cache.lua",
         script_relpath = "HottiScript/utils/cache.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     },
-        {
-        name = "utils_lua",
+    {
+        name = "lua",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/utils/lua.lua",
         script_relpath = "HottiScript/utils/lua.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     },
     {
         name = "constants",
@@ -59,14 +54,12 @@ local auto_update_config = {
         script_relpath = "HottiScript/dependencies/constants.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     }, {
         name = "item_browser",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/dependencies/item_browser.lua",
         script_relpath = "HottiScript/dependencies/item_browser.lua",
         switch_to_branch = "main",
         is_required = true,
-        verify_file_begins_with = "--"
     }, {
         name = "colors",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/dependencies/colors.lua",
@@ -78,7 +71,6 @@ local auto_update_config = {
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/dependencies/constructor_lib.lua",
         script_relpath = "HottiScript/dependencies/constructor_lib.lua",
         is_required = true,
-        verify_file_begins_with = "--"
     }, {
         name = "vehicles_list",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/dependencies/vehicles.txt",
@@ -90,7 +82,31 @@ local auto_update_config = {
         script_relpath = "lib/inspect.lua",
         verify_file_begins_with = "local",
         is_required = true
-    }}
+    },
+    {
+        name = "modules_vehicle",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/modules/1vehicle.lua",
+        script_relpath = "HottiScript/modules/1vehicle.lua",
+        switch_to_branch = "main",
+        is_required = true,
+    },
+    {
+        name = "modules_online",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/modules/2online.lua",
+        script_relpath = "HottiScript/modules/2online.lua",
+        switch_to_branch = "main",
+        is_required = true,
+    },
+    {
+        name = "modules_hud",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/modules/3hud.lua",
+        script_relpath = "HottiScript/modules/3hud.lua",
+        switch_to_branch = "main",
+        is_required = true,
+    },
+    
+
+}
 }
 
 util.ensure_package_is_installed('lua/auto-updater')
@@ -111,25 +127,8 @@ commands = {}
 categories = {}
 buses = {}
 
--- load all the functions first
-util.execute_in_os_thread(function()
-    local loaded_lib_status, loaded_lib
-    for _, dependency in pairs(filesystem.list_files(dependencies_dir)) do
-        -- Puedes agregar cualquier lógica de carga que necesites aquí
-        local dependencyName = dependency:match("([^/\\]+)%.lua$") -- gets the file name and removes the extension, so it will look like "money" instead of "dir/dir/money.lua"
-        if dependencyName then
-            loaded_lib_status, loaded_lib = pcall(require, SCRIPT_NAME .. ".dependencies." .. dependencyName)
-            if not loaded_lib_status then
-                error("Could not load required dependency `" .. dependencyName .. "`")
-            end
-            libs[dependencyName] = loaded_lib
-
-        end
-
-    end
-end)
-
 util.require_natives("3095a", "g")
+
 
 local root = menu.my_root()
 root:divider("HOTTI SCRIPT " .. SCRIPT_VERSION)
