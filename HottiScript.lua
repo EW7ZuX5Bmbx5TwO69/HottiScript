@@ -22,9 +22,17 @@ local auto_update_config = {
         verify_file_begins_with = "--"
     },
     {
-        name = "config_loader",
-        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/events/configLoader.lua",
-        script_relpath = "HottiScript/events/configLoader.lua",
+        name = "configLoader",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/handlers/main/configLoader.lua",
+        script_relpath = "HottiScript/handlers/main/configLoader",
+        switch_to_branch = "main",
+        is_required = true,
+        verify_file_begins_with = "--"
+    },
+    {
+        name = "playerJoin_event",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/events/playerJoinLeave.lua",
+        script_relpath = "HottiScript/events/playerJoinLeave.lua",
         switch_to_branch = "main",
         is_required = true,
         verify_file_begins_with = "--"
