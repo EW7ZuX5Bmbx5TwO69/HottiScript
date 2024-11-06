@@ -49,8 +49,8 @@ local function spawnBuses(amount)
         SET_VEHICLE_ENGINE_ON(bus, true, true, false)
         SET_VEHICLE_KEEP_ENGINE_ON_WHEN_ABANDONED(bus, true)
 
-        SET_ENTITY_COORDS_NO_OFFSET(bus, offset_position.x, offset_position.y, offset_position.z, false, false,
-            false, false)
+        SET_ENTITY_COORDS_NO_OFFSET(bus, offset_position.x, offset_position.y, offset_position.z, false, false, false,
+            false)
         local user_rotation = GET_ENTITY_ROTATION(players.user_ped(), 0)
 
         local yaw = math.deg(angle) + bus_yaw
@@ -96,8 +96,8 @@ local function adjustBuses()
         SET_ENTITY_VISIBLE(bus, bus_visibilityToggle, bus_visibilityToggle)
         SET_ENTITY_COLLISION(bus, bus_collisionToggle, bus_collisionToggle)
 
-        SET_ENTITY_COORDS_NO_OFFSET(bus, offset_position.x, offset_position.y, offset_position.z, false, false,
-            false, false)
+        SET_ENTITY_COORDS_NO_OFFSET(bus, offset_position.x, offset_position.y, offset_position.z, false, false, false,
+            false)
         local user_rotation = GET_ENTITY_ROTATION(players.user_ped(), 0)
 
         local yaw = math.deg(angle) + bus_yaw
@@ -206,7 +206,6 @@ local function list_setup(root, list, list_name)
 
     end
 
-
     menu.toggle_loop(list, "Roll Windows Down", {"rolldownwindows"}, "Roll your windows down and lock them down",
         function()
             local pVehicle = GET_VEHICLE_PED_IS_USING(players.user_ped())
@@ -232,33 +231,32 @@ local function list_setup(root, list, list_name)
         end
     end)
 
-
-
     local policeHeadlightsIndex = 1
-    menu.toggle_loop(list, "Police Headlights", {"policeheadlights"},
-        "Toggle the police lights on your current vehicle", function()
-            local playerVehicle = GET_VEHICLE_PED_IS_IN(players.user_ped(), true)
 
-            if playerVehicle and DOES_ENTITY_EXIST(playerVehicle) then
-                TOGGLE_VEHICLE_MOD(playerVehicle, libs.constants.VEHICLE_MOD_TYPES.MOD_XENONLIGHTS, true)
-                SET_VEHICLE_XENON_LIGHT_COLOR_INDEX(playerVehicle, policeHeadlightsIndex)
+    menu.toggle_loop(list, "Police tuning", {"policetuning"}, "", function()
+        local playerVehicle = GET_VEHICLE_PED_IS_IN(players.user_ped(), true)
 
-                if policeHeadlightsIndex == 1 then
-                    policeHeadlightsIndex = 8
+        if playerVehicle and DOES_ENTITY_EXIST(playerVehicle) then
+            TOGGLE_VEHICLE_MOD(playerVehicle, libs.constants.VEHICLE_MOD_TYPES.MOD_XENONLIGHTS, true)
+            SET_VEHICLE_XENON_LIGHT_COLOR_INDEX(playerVehicle, policeHeadlightsIndex)
+            SET_VEHICLE_XENON_LIGHT_COLOR_INDEX(playerVehicle, policeHeadlightsIndex)
 
-                else
-                    policeHeadlightsIndex = 1
-                end
-                util.yield(500)
+            SET_VEHICLE_NEON_ENABLED(playerVehicle, 0, true)
+            SET_VEHICLE_NEON_ENABLED(playerVehicle, 1, true)
+            SET_VEHICLE_NEON_ENABLED(playerVehicle, 2, true)
+            SET_VEHICLE_NEON_ENABLED(playerVehicle, 3, true)
+
+            if policeHeadlightsIndex == 1 then
+                SET_VEHICLE_NEON_COLOUR(playerVehicle, 255, 0, 0)
+                policeHeadlightsIndex = 8
+                
+            else
+                policeHeadlightsIndex = 1
+                SET_VEHICLE_NEON_COLOUR(playerVehicle, 0, 0, 255)
             end
+            util.yield(500)
+        end
 
-        end)
-
-    local neonIndex = 0
-
-    menu.toggle(list, "Police tuning", {"policetuning"}, "", function()
-        menu.trigger_commands("policeheadlights")
-        menu.trigger_commands("policeneon")
     end)
 
     list:divider("MUSIC BLASTER 3000")

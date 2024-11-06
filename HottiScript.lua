@@ -21,20 +21,6 @@ local auto_update_config = {
         is_required = true,
     },
     {
-        name = "configLoader",
-        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/handlers/main/configLoader.lua",
-        script_relpath = "HottiScript/handlers/main/configLoader.lua",
-        switch_to_branch = "main",
-        is_required = true,
-    },
-    {
-        name = "playerJoinLeave",
-        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/events/playerJoinLeave.lua",
-        script_relpath = "HottiScript/events/playerJoinLeave.lua",
-        switch_to_branch = "main",
-        is_required = true,
-    },
-    {
         name = "cache",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/utils/cache.lua",
         script_relpath = "HottiScript/utils/cache.lua",
@@ -45,6 +31,20 @@ local auto_update_config = {
         name = "lua",
         source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/utils/lua.lua",
         script_relpath = "HottiScript/utils/lua.lua",
+        switch_to_branch = "main",
+        is_required = true,
+    },
+    {
+        name = "configLoader",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/handlers/main/configLoader.lua",
+        script_relpath = "HottiScript/handlers/main/configLoader.lua",
+        switch_to_branch = "main",
+        is_required = true,
+    },
+    {
+        name = "playerJoinLeave",
+        source_url = "https://raw.githubusercontent.com/EW7ZuX5Bmbx5TwO69/HottiScript/main/HottiScript/events/playerJoinLeave.lua",
+        script_relpath = "HottiScript/events/playerJoinLeave.lua",
         switch_to_branch = "main",
         is_required = true,
     },
@@ -149,13 +149,13 @@ for _, dependency in pairs(auto_update_config.dependencies) do
 end
 
 -- load all the functions first
-util.execute_in_os_thread(function()
-    for _, file in pairs(filesystem.list_files(utils_dir)) do
-        -- Puedes agregar cualquier lógica de carga que necesites aquí
-        local utilName = file:match("([^/\\]+)%.lua$") -- gets the file name and removes the extension, so it will look like "money" instead of "dir/dir/money.lua"
-        require(SCRIPT_NAME .. ".utils." .. utilName)
-    end
-end)
+-- util.execute_in_os_thread(function()
+--     for _, file in pairs(filesystem.list_files(utils_dir)) do
+--         -- Puedes agregar cualquier lógica de carga que necesites aquí
+--         local utilName = file:match("([^/\\]+)%.lua$") -- gets the file name and removes the extension, so it will look like "money" instead of "dir/dir/money.lua"
+--         require(SCRIPT_NAME .. ".utils." .. utilName)
+--     end
+-- end)
 
 util.execute_in_os_thread(function()
 
